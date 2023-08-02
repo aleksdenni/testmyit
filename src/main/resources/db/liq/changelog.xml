@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <preConditions>
+        <dbms type="postgresql"/>
+    </preConditions>
+    
+    <changeSet id="0" author="iterepa">
+        <tagDatabase tag="db_init"/>
+    </changeSet>
+
+    <changeSet id="1" author="aleksdenni">
+        <createTable tableName="languages">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="language" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="iterepa">
+        <createTable tableName="users">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mail" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="results_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="3" author="iterepa">
+        <createTable tableName="results">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="passed" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="score" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quiz_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="4" author="iterepa">
+        <createTable tableName="quizzes">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="language_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="timestamp" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="5" author="iterepa">
+        <createTable tableName="categories">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="question_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="language_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="6" author="iterepa">
+        <createTable tableName="questions">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="question" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="option_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="7" author="iterepa">
+        <createTable tableName="options">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="option" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="isCorrect" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="8" author="iterepa">
+        <addForeignKeyConstraint  baseColumnNames="results_id"
+                                  baseTableName="users"
+                                  constraintName="fk_user_results"
+                                  referencedColumnNames="id"
+                                  referencedTableName="results"/>
+
+        <addForeignKeyConstraint  baseColumnNames="quiz_id"
+                                  baseTableName="results"
+                                  constraintName="fk_results_quizzes"
+                                  referencedColumnNames="id"
+                                  referencedTableName="quizzes"/>
+
+        <addForeignKeyConstraint  baseColumnNames="user_id"
+                                  baseTableName="quizzes"
+                                  constraintName="fk_quizzes_users"
+                                  referencedColumnNames="id"
+                                  referencedTableName="users"/>
+
+        <addForeignKeyConstraint  baseColumnNames="language_id"
+                                  baseTableName="quizzes"
+                                  constraintName="fk_quizzes_languages"
+                                  referencedColumnNames="id"
+                                  referencedTableName="languages"/>
+
+        <addForeignKeyConstraint  baseColumnNames="question_id"
+                                  baseTableName="categories"
+                                  constraintName="fk_categories_questions"
+                                  referencedColumnNames="id"
+                                  referencedTableName="questions"/>
+
+        <addForeignKeyConstraint  baseColumnNames="language_id"
+                                  baseTableName="categories"
+                                  constraintName="fk_categories_languages"
+                                  referencedColumnNames="id"
+                                  referencedTableName="languages"/>
+
+        <addForeignKeyConstraint  baseColumnNames="option_id"
+                                  baseTableName="questions"
+                                  constraintName="fk_questions_options"
+                                  referencedColumnNames="id"
+                                  referencedTableName="options"/>
+
+    </changeSet>
+    
+</databaseChangeLog>
