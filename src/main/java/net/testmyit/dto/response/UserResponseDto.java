@@ -1,15 +1,16 @@
-package net.testmyit.dto.request;
+package net.testmyit.dto.response;
 
 import lombok.Builder;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
-@Builder
 @Value
+@Builder
 @RequiredArgsConstructor
-public class UserRequestDto {
+public class UserResponseDto {
 
+    Long id;
+    @NonNull String name;
     @NonNull String email;
-    @NonNull String password;
 }
