@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="0" author="iterepa">
+        <tagDatabase tag="db_init"/>
+    </changeSet>
+
+    <changeSet id="1" author="iterepa">
+        <createTable tableName="questions">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="question" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="option_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="iterepa">
+        <createTable tableName="options">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="option" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="isCorrect" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="iterepa">
+        <addForeignKeyConstraint  baseColumnNames="option_id"
+                                  baseTableName="questions"
+                                  constraintName="fk_questions_options"
+                                  referencedColumnNames="id"
+                                  referencedTableName="options"/>
+    </changeSet>
+	
+	<changeSet id="4" author="iterepa">
+        <createTable tableName="languages">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="language" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+	
+	<changeSet id="5" author="iterepa">
+        <createTable tableName="categories">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="question_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="language_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+	
+	 <changeSet id="6" author="iterepa">
+        <addForeignKeyConstraint  baseColumnNames="question_id"
+                                  baseTableName="categories"
+                                  constraintName="fk_categories_questions"
+                                  referencedColumnNames="id"
+                                  referencedTableName="questions"/>
+    </changeSet>
+
+    <changeSet id="7" author="iterepa">
+        <addForeignKeyConstraint  baseColumnNames="language_id"
+                                  baseTableName="categories"
+                                  constraintName="fk_categories_languages"
+                                  referencedColumnNames="id"
+                                  referencedTableName="languages"/>
+    </changeSet>
+
+    <changeSet id="8" author="iterepa">
+        <createTable tableName="users">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
