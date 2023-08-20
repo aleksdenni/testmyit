@@ -103,10 +103,10 @@
             </column>
             <column name="name" type="varchar(255)">
             </column>
-            <column name="mail" type="varchar(255)">
+            <column name="email" type="varchar(255)">
                 <constraints unique="true" nullable="false"/>
             </column>
         </createTable>
-    </changeSet>   
+    </changeSet>
 
 </databaseChangeLog>
