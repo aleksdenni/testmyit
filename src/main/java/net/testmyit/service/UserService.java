@@ -24,6 +24,19 @@ public class UserService {
     }
 
     @Transactional
+    public UserDto getUser(Long id) {
+        User user = userRepository.findById(id).orElse(null);
+        return user != null ? userMapper.toDto(user) : null;
+    }
+    @Transactional
+    public UserDto updateUser(Long id, UserDto userDto) {
+        final User user = userMapper.toUser(userDto);
+        user.setId(id);
+        final User savedUser = userRepository.save(user);
+        return userMapper.toDto(savedUser);
+    }
+
+    @Transactional
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
