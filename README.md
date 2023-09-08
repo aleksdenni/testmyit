@@ -2,3 +2,7 @@
 
 [![test](https://github.com/aleksdenni/testmyit/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/aleksdenni/testmyit/actions/workflows/test.yml)
 # Welcome to the API for testing :white_check_mark:
+
+## Improving theoretical knowledge of IT.
+## Practice before the IT specialty interview.
+## The practice of passing tests in IT directions.
