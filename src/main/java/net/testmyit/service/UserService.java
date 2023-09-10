@@ -34,7 +34,7 @@ public class UserService {
     }
     @Transactional
     public UserDto updateUser(Long id, UserDto userDto) {
-        final User user = userMapper.toUser(userDto);
+        final User user = userMapper.toEntity(userDto);
         user.setId(id);
         final User savedUser = userRepository.save(user);
         return userMapper.toDto(savedUser);
