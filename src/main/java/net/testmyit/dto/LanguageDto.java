@@ -10,6 +10,6 @@ import lombok.Value;
 @RequiredArgsConstructor
 public class LanguageDto {
     Long id;
-    @NonNull String image;
     @NonNull String language;
+    @NonNull String image;
 }
