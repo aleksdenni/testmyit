@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LanguageMapper {
 
-    public Language toLanguage(LanguageRequestDto languageRequestDto){
+    public Language toEntity(LanguageRequestDto languageRequestDto){
         return Language.builder()
                 .language(languageRequestDto.getLanguage())
                 .image(languageRequestDto.getImage())
@@ -24,7 +24,7 @@ public class LanguageMapper {
                 .build();
     }
 
-    public Language toLanguage(LanguageDto languageDto) {
+    public Language toEntity(LanguageDto languageDto) {
         return Language.builder()
                 .id(languageDto.getId())
                 .language(languageDto.getLanguage())
