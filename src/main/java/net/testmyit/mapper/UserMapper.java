@@ -1,7 +1,7 @@
 package net.testmyit.mapper;
 
-import net.testmyit.dto.UserDto;
 import net.testmyit.dto.request.UserRequestDto;
+import net.testmyit.dto.response.UserResponseDto;
 import net.testmyit.model.User;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
@@ -17,15 +17,15 @@ public class UserMapper {
                 .build();
     }
 
-    public User toEntity(UserDto userDto) {
+    public User toEntity(UserResponseDto userResponseDto) {
         return User.builder()
-                .email(userDto.getEmail())
-                .name(userDto.getName())
+                .email(userResponseDto.getEmail())
+                .name(userResponseDto.getName())
                 .build();
     }
 
-    public UserDto toDto(User user) {
-        return UserDto.builder()
+    public UserResponseDto toResponseDto(User user) {
+        return UserResponseDto.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .email(user.getEmail())
