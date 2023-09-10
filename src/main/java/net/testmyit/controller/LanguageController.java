@@ -2,7 +2,6 @@ package net.testmyit.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import net.testmyit.dto.LanguageDto;
 import net.testmyit.dto.request.LanguageRequestDto;
 import net.testmyit.dto.response.LanguageResponseDto;
 import net.testmyit.service.LanguageService;
