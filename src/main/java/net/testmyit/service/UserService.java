@@ -6,6 +6,7 @@ import net.testmyit.dto.request.UserRequestDto;
 import net.testmyit.mapper.UserMapper;
 import net.testmyit.model.User;
 import net.testmyit.repository.UserRepository;
+import net.testmyit.security.KeycloakAdmin;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,17 +16,20 @@ public class UserService {
 
     private final UserMapper userMapper;
     private final UserRepository userRepository;
+    private final KeycloakAdmin keycloakAdmin;
 
     @Transactional
     public UserDto createUser(UserRequestDto userRequestDto) {
+        final var userRepresentation = userMapper.toUserRepresentation(userRequestDto);
+        keycloakAdmin.createUser(userRepresentation);
         final User user = userMapper.toUser(userRequestDto);
-        User savedUser = userRepository.save(user);
+        final User savedUser = userRepository.save(user);
         return userMapper.toDto(savedUser);
     }
 
     @Transactional
     public UserDto getUser(Long id) {
-        User user = userRepository.findById(id).orElse(null);
+        final User user = userRepository.findById(id).orElse(null);
         return user != null ? userMapper.toDto(user) : null;
     }
     @Transactional
