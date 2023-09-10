@@ -3,6 +3,7 @@ package net.testmyit.mapper;
 
 import net.testmyit.dto.LanguageDto;
 import net.testmyit.dto.request.LanguageRequestDto;
+import net.testmyit.dto.response.LanguageResponseDto;
 import net.testmyit.model.Language;
 import org.springframework.stereotype.Component;
 
@@ -16,19 +17,19 @@ public class LanguageMapper {
                 .build();
     }
 
-    public LanguageDto toDto(Language language){
-        return LanguageDto.builder()
+    public LanguageResponseDto toDto(Language language){
+        return LanguageResponseDto.builder()
                 .id(language.getId())
                 .language(language.getLanguage())
                 .image(language.getImage())
                 .build();
     }
 
-    public Language toEntity(LanguageDto languageDto) {
+    public Language toEntity(LanguageResponseDto languageResponseDto) {
         return Language.builder()
-                .id(languageDto.getId())
-                .language(languageDto.getLanguage())
-                .image(languageDto.getImage())
+                .id(languageResponseDto.getId())
+                .language(languageResponseDto.getLanguage())
+                .image(languageResponseDto.getImage())
                 .build();
     }
 }

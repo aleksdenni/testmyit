@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import net.testmyit.dto.LanguageDto;
 import net.testmyit.dto.request.LanguageRequestDto;
+import net.testmyit.dto.response.LanguageResponseDto;
 import net.testmyit.service.LanguageService;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,17 +15,17 @@ public class LanguageController {
     private final LanguageService languageService;
 
     @PostMapping
-    public LanguageDto createLanguage(@RequestBody @Valid LanguageRequestDto languageRequestDto){
+    public LanguageResponseDto createLanguage(@RequestBody @Valid LanguageRequestDto languageRequestDto){
         return languageService.createLanguage(languageRequestDto);
     }
 
     @GetMapping("/id")
-    public LanguageDto getLanguage(@PathVariable Long id){
+    public LanguageResponseDto getLanguage(@PathVariable Long id){
         return languageService.getLanguage(id);
     }
 
     @PutMapping("/id")
-    public LanguageDto updateLanguage(@PathVariable Long id, @Valid @RequestBody LanguageRequestDto languageRequestDto){
+    public LanguageResponseDto updateLanguage(@PathVariable Long id, @Valid @RequestBody LanguageRequestDto languageRequestDto){
         return languageService.updateLanguage(id, languageRequestDto);
     }
 

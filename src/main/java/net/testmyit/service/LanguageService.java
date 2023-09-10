@@ -3,6 +3,7 @@ package net.testmyit.service;
 import lombok.RequiredArgsConstructor;
 import net.testmyit.dto.LanguageDto;
 import net.testmyit.dto.request.LanguageRequestDto;
+import net.testmyit.dto.response.LanguageResponseDto;
 import net.testmyit.mapper.LanguageMapper;
 import net.testmyit.model.Language;
 import net.testmyit.repository.LanguageRepository;
@@ -17,20 +18,20 @@ public class LanguageService {
     private final LanguageRepository languageRepository;
 
     @Transactional
-    public LanguageDto createLanguage(LanguageRequestDto languageRequestDto) {
+    public LanguageResponseDto createLanguage(LanguageRequestDto languageRequestDto) {
         final Language language = languageMapper.toEntity(languageRequestDto);
         final Language savedLanguage = languageRepository.save(language);
         return languageMapper.toDto(savedLanguage);
     }
 
     @Transactional
-    public LanguageDto getLanguage(Long id){
+    public LanguageResponseDto getLanguage(Long id){
         final Language language = languageRepository.findById(id).orElse(null);
         return language != null ? languageMapper.toDto(language) : null;
     }
 
     @Transactional
-    public LanguageDto updateLanguage(Long id, LanguageRequestDto languageRequestDto) {
+    public LanguageResponseDto updateLanguage(Long id, LanguageRequestDto languageRequestDto) {
         final Language language = languageMapper.toEntity(languageRequestDto);
         language.setId(id);
         final Language savedLanguage = languageRepository.save(language);
