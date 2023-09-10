@@ -24,8 +24,8 @@ public class LanguageController {
     }
 
     @PutMapping("/id")
-    public LanguageDto updateLanguage(@PathVariable Long id, @RequestBody LanguageDto languageDto){
-        return languageService.updateLanguage(id, languageDto);
+    public LanguageDto updateLanguage(@PathVariable Long id, @Valid @RequestBody LanguageRequestDto languageRequestDto){
+        return languageService.updateLanguage(id, languageRequestDto);
     }
 
     @DeleteMapping("/id")

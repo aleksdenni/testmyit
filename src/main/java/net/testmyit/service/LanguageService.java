@@ -19,19 +19,19 @@ public class LanguageService {
     @Transactional
     public LanguageDto createLanguage(LanguageRequestDto languageRequestDto) {
         final Language language = languageMapper.toEntity(languageRequestDto);
-        Language savedLanguage = languageRepository.save(language);
+        final Language savedLanguage = languageRepository.save(language);
         return languageMapper.toDto(savedLanguage);
     }
 
     @Transactional
     public LanguageDto getLanguage(Long id){
-        Language language = languageRepository.findById(id).orElse(null);
+        final Language language = languageRepository.findById(id).orElse(null);
         return language != null ? languageMapper.toDto(language) : null;
     }
 
     @Transactional
-    public LanguageDto updateLanguage(Long id, LanguageDto languageDto) {
-        final Language language = languageMapper.toEntity(languageDto);
+    public LanguageDto updateLanguage(Long id, LanguageRequestDto languageRequestDto) {
+        final Language language = languageMapper.toEntity(languageRequestDto);
         language.setId(id);
         final Language savedLanguage = languageRepository.save(language);
         return languageMapper.toDto(savedLanguage);
