@@ -23,12 +23,4 @@ public class LanguageMapper {
                 .image(language.getImage())
                 .build();
     }
-
-    public Language toEntity(LanguageResponseDto languageResponseDto) {
-        return Language.builder()
-                .id(languageResponseDto.getId())
-                .language(languageResponseDto.getLanguage())
-                .image(languageResponseDto.getImage())
-                .build();
-    }
 }
