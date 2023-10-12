@@ -10,6 +10,8 @@ import lombok.Value;
 @RequiredArgsConstructor
 public class UserRequestDto {
 
+    long id;
+    String name;
     @NonNull String email;
     @NonNull String password;
 }
