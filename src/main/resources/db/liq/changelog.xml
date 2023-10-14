@@ -60,15 +60,15 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="5" author="iterepa">
-        <addForeignKeyConstraint  baseColumnNames="question_id"
-                                  baseTableName="categories"
-                                  constraintName="fk_categories_questions"
+    <changeSet id="5" author="aleksdenni">
+        <addForeignKeyConstraint  baseColumnNames="category_id"
+                                  baseTableName="questions"
+                                  constraintName="fk_questions_categories"
                                   referencedColumnNames="id"
-                                  referencedTableName="questions"/>
+                                  referencedTableName="categories"/>
     </changeSet>
 
-    <changeSet id="6" author="iterepa">
+    <changeSet id="6" author="iterepa/aleksdenni">
         <createTable tableName="options">
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -86,11 +86,11 @@
     </changeSet>
 
     <changeSet id="7" author="iterepa">
-        <addForeignKeyConstraint  baseColumnNames="option_id"
-                                  baseTableName="questions"
-                                  constraintName="fk_questions_options"
+        <addForeignKeyConstraint  baseColumnNames="questions_id"
+                                  baseTableName="options"
+                                  constraintName="fk_options_questions"
                                   referencedColumnNames="id"
-                                  referencedTableName="options"/>
+                                  referencedTableName="questions"/>
     </changeSet>
 
     <changeSet id="8" author="iterepa">
