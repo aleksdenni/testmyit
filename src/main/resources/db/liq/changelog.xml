@@ -86,7 +86,7 @@
     </changeSet>
 
     <changeSet id="7" author="iterepa">
-        <addForeignKeyConstraint  baseColumnNames="questions_id"
+        <addForeignKeyConstraint  baseColumnNames="question_id"
                                   baseTableName="options"
                                   constraintName="fk_options_questions"
                                   referencedColumnNames="id"
