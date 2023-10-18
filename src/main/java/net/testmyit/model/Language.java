@@ -16,12 +16,12 @@ public class Language {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "language")
+    @Column(name = "language", nullable = false)
     private String language;
 
-    @Column(name = "image")
+    @Column(name = "image", nullable = false)
     private String image;
 }
