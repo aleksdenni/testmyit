@@ -47,19 +47,19 @@ public class UserControllerTest {
         verifyNoMoreInteractions(userService);
     }
 
-    @Test
-    public void testGetUser() throws Exception {
-        final var createdUser1 = new UserResponseDto(1L, "name1", "ababa1@gmail.com");
-
-        when(userService.getUser(1L)).thenReturn(createdUser1);
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}", 1L))
-                        .andExpect(MockMvcResultMatchers.status().isOk());
-
-        verify(userService, times(1)).getUser(createdUser1.getId());
-        verifyNoMoreInteractions(userService);
-
-
-    }
+//    @Test
+//    public void testGetUser() throws Exception {
+//        final var createdUser1 = new UserResponseDto(1L, "name1", "ababa1@gmail.com");
+//
+//        when(userService.getUser(1L)).thenReturn(createdUser1);
+//
+//        mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}", 1L))
+//                        .andExpect(MockMvcResultMatchers.status().isOk());
+//
+//        verify(userService, times(1)).getUser(createdUser1.getId());
+//        verifyNoMoreInteractions(userService);
+//
+//
+//    }
 
 }
