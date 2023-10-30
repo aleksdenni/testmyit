@@ -24,6 +24,7 @@ public class Question {
     @Column(name = "question", nullable = false)
     private String question;
 
-    @OneToMany(mappedBy = "question")
-    private List<Option> options;
+    @ManyToOne
+    @JoinColumn()
+    private Category category_id;
 }
