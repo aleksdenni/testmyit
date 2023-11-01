@@ -25,6 +25,6 @@ public class Question {
     private String question;
 
     @ManyToOne
-    @JoinColumn()
+    @JoinColumn(name = "category_id")
     private Category category_id;
 }
