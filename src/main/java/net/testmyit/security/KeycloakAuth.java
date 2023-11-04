@@ -14,7 +14,7 @@ import static org.keycloak.OAuth2Constants.*;
 @RequiredArgsConstructor
 public class KeycloakAuth {
     private final WebClient webClient;
-    private final @Value("keycloak.tokenUri") String tokenUri;
+    private final @Value("${keycloak.tokenUri}") String tokenUri;
 
     public LogInResponseDto getAccessToken(String email, String password) {
         return webClient.post()
