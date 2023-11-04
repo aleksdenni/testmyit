@@ -15,8 +15,7 @@ public class SwaggerConfiguration {
                         .title("testMyIT API")
                         .description("API for a quiz application")
                         .version("v0.0.1")
-                        .contact(new Contact().name("Aleks")
-                        .url("https://www.linkedin.com/in/oleksii-chekaliuk-805519154")
-                        .email("aleksdenni@gmail.com")));
+                        .contact(new Contact()
+                                .url("https://www.linkedin.com/in/oleksii-chekaliuk-805519154")));
     }
 }
