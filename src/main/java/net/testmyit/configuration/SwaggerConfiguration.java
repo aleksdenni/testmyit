@@ -5,13 +5,9 @@ import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import java.nio.file.Path;
-
 @Configuration
-@ComponentScan(basePackages = "/net.testmyit")
 public class SwaggerConfiguration {
     @Bean
     public OpenAPI TestMyItOpenApi() {
@@ -19,7 +15,7 @@ public class SwaggerConfiguration {
                 .path("start", new PathItem())
                 .info(new Info()
                         .title("testMyIT API")
-                        .description("API for a quiz application")
+                        .description("API for a quiz")
                         .version("v0.0.1")
                         .contact(new Contact()
                                 .name("aleksdenni")
