@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,7 +19,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public LogInResponseDto logIn(@Valid @RequestBody LogInRequestDto logInRequest) {
+    public Mono<LogInResponseDto> logIn(@Valid @RequestBody LogInRequestDto logInRequest) {
         return authService.logIn(logInRequest);
     }
 

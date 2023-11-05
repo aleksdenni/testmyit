@@ -8,6 +8,7 @@ import net.testmyit.security.KeycloakAuth;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
@@ -15,10 +16,9 @@ import org.springframework.web.server.ResponseStatusException;
 public class AuthService {
     private final KeycloakAuth keycloakAuth;
 
-    public LogInResponseDto logIn(LogInRequestDto logInRequest) {
+    public Mono<LogInResponseDto> logIn(LogInRequestDto logInRequest) {
         try {
-            log.info("Generating login response for email: {}", logInRequest.getEmail());
-            LogInResponseDto responseDto = keycloakAuth.getAccessToken(logInRequest.getEmail(), logInRequest.getPassword());
+            Mono<LogInResponseDto> responseDto = keycloakAuth.getAccessToken(logInRequest.getEmail(), logInRequest.getPassword());
             log.info("Access token generated successfully for email: {}", logInRequest.getEmail());
             return responseDto;
         } catch (Exception e) {
