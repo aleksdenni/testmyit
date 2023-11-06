@@ -8,6 +8,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import static org.keycloak.OAuth2Constants.CLIENT_CREDENTIALS;
+
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "keycloak")
@@ -17,7 +19,7 @@ public class KeycloakConfiguration {
     private String realm;
     private String clientId;
     private String clientSecret;
-    private String authType;
+    private String tokenUri;
 
     @Bean
     public Keycloak keycloak(){
@@ -26,12 +28,7 @@ public class KeycloakConfiguration {
                 .realm(realm)
                 .clientId(clientId)
                 .clientSecret(clientSecret)
-                .grantType(authType)
+                .grantType(CLIENT_CREDENTIALS)
                 .build();
     }
 }
-
-
-
-
-
