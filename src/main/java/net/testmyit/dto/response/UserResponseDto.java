@@ -11,6 +11,6 @@ import lombok.Value;
 public class UserResponseDto {
 
     Long id;
-    @NonNull String name;
+    String name;
     @NonNull String email;
 }
