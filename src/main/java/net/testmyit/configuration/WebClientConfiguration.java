@@ -8,13 +8,13 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class WebClientConfiguration {
 
-    @Value("${keycloak.authServerUrl}")
-    private String authServerUrl;
+    @Value("${keycloak.authServerUri}")
+    private String authServerUri;
 
     @Bean
     public WebClient keycloakWebClient() {
         return WebClient.builder()
-                .baseUrl(authServerUrl)
+                .baseUrl(authServerUri)
                 .build();
     }
 

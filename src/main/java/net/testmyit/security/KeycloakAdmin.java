@@ -1,6 +1,5 @@
 package net.testmyit.security;
 
-import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.testmyit.configuration.KeycloakConfiguration;
@@ -10,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.ws.rs.core.Response;
+
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -17,7 +18,7 @@ public class KeycloakAdmin {
     private final KeycloakConfiguration keycloakConfiguration;
     private final Keycloak keycloak;
     public void createUser(UserRepresentation userRepresentation){
-        log.info("Creating user with username: {}", userRepresentation.getUsername());
+        log.info("Creating user with email: {}", userRepresentation.getEmail());
         int statusCode;
         try (var response = keycloak.realm(keycloakConfiguration.getRealm())
                 .users()

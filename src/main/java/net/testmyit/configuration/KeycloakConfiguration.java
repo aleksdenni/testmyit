@@ -15,7 +15,7 @@ import static org.keycloak.OAuth2Constants.CLIENT_CREDENTIALS;
 @ConfigurationProperties(prefix = "keycloak")
 @Configuration
 public class KeycloakConfiguration {
-    private String authServerUrl;
+    private String authServerUri;
     private String realm;
     private String clientId;
     private String clientSecret;
@@ -24,7 +24,7 @@ public class KeycloakConfiguration {
     @Bean
     public Keycloak keycloak(){
         return KeycloakBuilder.builder()
-                .serverUrl(authServerUrl)
+                .serverUrl(authServerUri)
                 .realm(realm)
                 .clientId(clientId)
                 .clientSecret(clientSecret)
