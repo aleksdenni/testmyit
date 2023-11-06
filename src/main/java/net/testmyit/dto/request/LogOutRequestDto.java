@@ -13,6 +13,5 @@ import lombok.Value;
 public class LogOutRequestDto {
 
     @NotBlank String accessToken;
-    @NotBlank String refreshToken;
 
 }
