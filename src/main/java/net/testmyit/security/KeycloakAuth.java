@@ -1,13 +1,13 @@
 package net.testmyit.security;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;;
+import lombok.extern.slf4j.Slf4j;
+import net.testmyit.configuration.KeycloakConfiguration;
 import net.testmyit.dto.request.LogOutRequestDto;
 import net.testmyit.dto.response.LogInResponseDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -15,16 +15,13 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
-import java.net.URI;
-import java.util.function.Function;
-
 import static org.keycloak.OAuth2Constants.*;
-
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class KeycloakAuth {
+    private final KeycloakConfiguration keycloakConfiguration;
     private final WebClient webClient;
     @Value("${keycloak.tokenUri}")
     private String tokenUri;
@@ -35,7 +32,9 @@ public class KeycloakAuth {
         return webClient.post()
                 .uri(tokenUri)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .body(BodyInserters.fromFormData(USERNAME, email)
+                .body(BodyInserters.fromFormData(CLIENT_ID, keycloakConfiguration.getClientId())
+                        .with(CLIENT_SECRET, keycloakConfiguration.getClientSecret())
+                        .with(USERNAME, email)
                         .with(PASSWORD, password)
                         .with(GRANT_TYPE, PASSWORD))
                 .retrieve()
