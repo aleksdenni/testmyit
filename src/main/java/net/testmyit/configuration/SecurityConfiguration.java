@@ -7,7 +7,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
@@ -24,16 +23,15 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
                         .anyRequest().authenticated())
+                .authorizeHttpRequests(authorized -> authorized.
+                        requestMatchers(HttpMethod.POST, "*/api/v1/users", "/api/v1/auth/login")
+                        .permitAll())
+                .authorizeHttpRequests(authorized -> authorized.
+                        requestMatchers(HttpMethod.GET, "/v3/api-docs/**", "/api/v1/auth/logout"
+                                , "/actuator/**", "/swagger-ui/**")
+                        .permitAll())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
         return http.csrf(AbstractHttpConfigurer::disable).build();
-    }
-
-    @Bean
-    public WebSecurityCustomizer customizer() {
-        return web -> web.ignoring()
-                .requestMatchers(HttpMethod.POST, "*/api/v1/users", "/api/v1/auth/login")
-                .requestMatchers(HttpMethod.GET, "/v3/api-docs/**", "/api/v1/auth/logout"
-                        , "/actuator/**", "/swagger-ui/**");
     }
 
     @Bean
