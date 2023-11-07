@@ -21,15 +21,15 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().authenticated())
-                .authorizeHttpRequests(authorized -> authorized.
+        http.authorizeHttpRequests(authorized -> authorized.
                         requestMatchers(HttpMethod.POST, "*/api/v1/users", "/api/v1/auth/login")
                         .permitAll())
                 .authorizeHttpRequests(authorized -> authorized.
                         requestMatchers(HttpMethod.GET, "/v3/api-docs/**", "/api/v1/auth/logout"
                                 , "/actuator/**", "/swagger-ui/**")
                         .permitAll())
+                .authorizeHttpRequests(authorize -> authorize
+                        .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
         return http.csrf(AbstractHttpConfigurer::disable).build();
     }
