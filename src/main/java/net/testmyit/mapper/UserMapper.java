@@ -41,6 +41,7 @@ public class UserMapper {
         final var userRepresentation = new UserRepresentation();
         userRepresentation.setEmail(userRequestDto.getEmail());
         userRepresentation.setCredentials(List.of(credential));
+        userRepresentation.setEnabled(true);
         return userRepresentation;
     }
 }
