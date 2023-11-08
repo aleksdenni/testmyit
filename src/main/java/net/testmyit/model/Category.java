@@ -3,7 +3,9 @@ package net.testmyit.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Table
+import java.util.List;
+
+@Table(name = "categories")
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,4 +25,9 @@ public class Category {
 
     @ManyToOne
     private Language language_id;
+
+    @OneToMany(cascade = CascadeType.DETACH,
+            mappedBy = "category_id",
+            fetch = FetchType.LAZY)
+    private List<Question> listQuestions;
 }
