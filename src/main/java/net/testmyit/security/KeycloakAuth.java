@@ -6,7 +6,6 @@ import net.testmyit.configuration.KeycloakConfiguration;
 import net.testmyit.dto.request.LogOutRequestDto;
 import net.testmyit.dto.response.LogInResponseDto;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -27,6 +26,8 @@ public class KeycloakAuth {
     private String tokenUri;
     @Value("${keycloak.logoutUri}")
     private String logoutUri;
+    @Value("${keycloak.userInfoUri}")
+    private String userInfoUri;
 
     public Mono<LogInResponseDto> getAccessToken(String email, String password) {
         return webClient.post()
@@ -36,7 +37,8 @@ public class KeycloakAuth {
                         .with(CLIENT_SECRET, keycloakConfiguration.getClientSecret())
                         .with(USERNAME, email)
                         .with(PASSWORD, password)
-                        .with(GRANT_TYPE, PASSWORD))
+                        .with(GRANT_TYPE, PASSWORD)
+                        .with(SCOPE, SCOPE_OPENID))
                 .retrieve()
                 .bodyToMono(LogInResponseDto.class)
                 .doOnSuccess(
@@ -45,12 +47,13 @@ public class KeycloakAuth {
                         error.getMessage()));
     }
 
-    public void logOut(LogOutRequestDto requestDto) {
-        webClient.get()
+    public Mono<String> logOut(LogOutRequestDto requestDto) {
+        return webClient.post()
                 .uri(logoutUri)
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + requestDto.getAccessToken())
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .body(BodyInserters.fromFormData(ID_TOKEN_HINT, requestDto.getIdToken()))
                 .retrieve()
-                .toBodilessEntity()
+                .bodyToMono(String.class)
                 .doOnSuccess(response -> log.info("logout success"))
                 .doOnError(error -> {
                     log.error("logout failed due to {}", error.getMessage());
