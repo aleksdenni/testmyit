@@ -1,5 +1,6 @@
 package net.testmyit.security;
 
+import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.testmyit.configuration.KeycloakConfiguration;
@@ -8,8 +9,6 @@ import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
-
-import javax.ws.rs.core.Response;
 
 @Component
 @RequiredArgsConstructor
