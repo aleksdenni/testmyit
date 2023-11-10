@@ -21,7 +21,7 @@ public class AuthService {
         return responseDto;
     }
 
-    public void logOut(LogOutRequestDto requestDto) {
-        keycloakAuth.logOut(requestDto);
+    public Mono<String> logOut(LogOutRequestDto requestDto) {
+        return keycloakAuth.logOut(requestDto);
     }
 }

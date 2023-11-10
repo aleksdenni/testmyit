@@ -1,5 +1,6 @@
 package net.testmyit.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,6 +13,7 @@ import lombok.Value;
 @AllArgsConstructor
 public class LogOutRequestDto {
 
-    @NotBlank String accessToken;
+    @JsonProperty("id_token")
+    @NotBlank String idToken;
 
 }

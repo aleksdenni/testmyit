@@ -6,8 +6,10 @@ import net.testmyit.dto.request.LogInRequestDto;
 import net.testmyit.dto.request.LogOutRequestDto;
 import net.testmyit.dto.response.LogInResponseDto;
 import net.testmyit.service.AuthService;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -22,10 +24,9 @@ public class AuthController {
         return authService.logIn(logInRequest);
     }
 
-    @GetMapping("/logout")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void logOut(@RequestBody @Valid LogOutRequestDto requestDto) {
-        authService.logOut(requestDto);
+    @PostMapping("/logout")
+    public Mono<String> logOut(@RequestBody @Valid LogOutRequestDto requestDto) {
+        return authService.logOut(requestDto);
     }
 
 }
