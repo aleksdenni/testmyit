@@ -16,7 +16,8 @@ import org.springframework.web.server.ResponseStatusException;
 public class KeycloakAdmin {
     private final KeycloakConfiguration keycloakConfiguration;
     private final Keycloak keycloak;
-    public void createUser(UserRepresentation userRepresentation){
+
+    public void createUser(UserRepresentation userRepresentation) {
         log.info("Creating user with email: {}", userRepresentation.getEmail());
         int statusCode;
         try (var response = keycloak.realm(keycloakConfiguration.getRealm())

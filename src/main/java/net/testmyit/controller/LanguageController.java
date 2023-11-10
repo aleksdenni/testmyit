@@ -14,22 +14,22 @@ public class LanguageController {
     private final LanguageService languageService;
 
     @PostMapping
-    public LanguageResponseDto createLanguage(@RequestBody @Valid LanguageRequestDto languageRequestDto){
+    public LanguageResponseDto createLanguage(@RequestBody @Valid LanguageRequestDto languageRequestDto) {
         return languageService.createLanguage(languageRequestDto);
     }
 
     @GetMapping("/id")
-    public LanguageResponseDto getLanguage(@PathVariable Long id){
+    public LanguageResponseDto getLanguage(@PathVariable Long id) {
         return languageService.getLanguage(id);
     }
 
     @PutMapping("/id")
-    public LanguageResponseDto updateLanguage(@PathVariable Long id, @Valid @RequestBody LanguageRequestDto languageRequestDto){
+    public LanguageResponseDto updateLanguage(@PathVariable Long id, @Valid @RequestBody LanguageRequestDto languageRequestDto) {
         return languageService.updateLanguage(id, languageRequestDto);
     }
 
     @DeleteMapping("/id")
-    public void deleteLanguage(@PathVariable Long id){
+    public void deleteLanguage(@PathVariable Long id) {
         languageService.deleteLanguage(id);
     }
 }

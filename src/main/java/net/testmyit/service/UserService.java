@@ -32,6 +32,7 @@ public class UserService {
         final User user = userRepository.findById(id).orElse(null);
         return user != null ? userMapper.toResponseDto(user) : null;
     }
+
     @Transactional
     public UserResponseDto updateUser(Long id, UserRequestDto userRequestDto) {
         final User user = userMapper.toEntity(userRequestDto);
