@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.testmyit.configuration.KeycloakConfiguration;
 import net.testmyit.dto.request.LogOutRequestDto;
+import net.testmyit.dto.request.RefreshTokenRequestDto;
 import net.testmyit.dto.response.LogInResponseDto;
+import net.testmyit.dto.response.RefreshTokenResponseDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,16 +35,16 @@ public class KeycloakAuth {
         return webClient.post()
                 .uri(tokenUri)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .body(BodyInserters.fromFormData(CLIENT_ID, keycloakConfiguration.getClientId())
+                .body(BodyInserters
+                        .fromFormData(GRANT_TYPE, PASSWORD)
+                        .with(CLIENT_ID, keycloakConfiguration.getClientId())
                         .with(CLIENT_SECRET, keycloakConfiguration.getClientSecret())
                         .with(USERNAME, email)
                         .with(PASSWORD, password)
-                        .with(GRANT_TYPE, PASSWORD)
                         .with(SCOPE, SCOPE_OPENID))
                 .retrieve()
                 .bodyToMono(LogInResponseDto.class)
-                .doOnSuccess(
-                        response -> log.info("successful authentication response"))
+                .doOnSuccess(response -> log.info("successful authentication response"))
                 .doOnError(error -> log.error("authenticate failed due to {}",
                         error.getMessage()));
     }
@@ -51,7 +53,8 @@ public class KeycloakAuth {
         return webClient.post()
                 .uri(logoutUri)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .body(BodyInserters.fromFormData(ID_TOKEN_HINT, requestDto.getIdToken()))
+                .body(BodyInserters
+                        .fromFormData(ID_TOKEN_HINT, requestDto.getIdToken()))
                 .retrieve()
                 .bodyToMono(String.class)
                 .doOnSuccess(response -> log.info("logout success"))
@@ -59,5 +62,20 @@ public class KeycloakAuth {
                     log.error("logout failed due to {}", error.getMessage());
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "logout failed");
                 });
+    }
+
+    public Mono<RefreshTokenResponseDto> refreshToken(RefreshTokenRequestDto refreshTokenRequest) {
+        return webClient.post()
+                .uri(tokenUri)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .body(BodyInserters
+                        .fromFormData(GRANT_TYPE, REFRESH_TOKEN)
+                        .with(CLIENT_ID, keycloakConfiguration.getClientId())
+                        .with(CLIENT_SECRET, keycloakConfiguration.getClientSecret())
+                        .with(REFRESH_TOKEN, refreshTokenRequest.getRefreshToken()))
+                .retrieve()
+                .bodyToMono(RefreshTokenResponseDto.class)
+                .doOnSuccess(response -> log.info("token refresh success"))
+                .doOnError(error -> log.error("logout failed due to {}", error.getMessage()));
     }
 }

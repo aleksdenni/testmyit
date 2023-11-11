@@ -4,7 +4,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import net.testmyit.dto.request.LogInRequestDto;
 import net.testmyit.dto.request.LogOutRequestDto;
+import net.testmyit.dto.request.RefreshTokenRequestDto;
 import net.testmyit.dto.response.LogInResponseDto;
+import net.testmyit.dto.response.RefreshTokenResponseDto;
 import net.testmyit.service.AuthService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +29,11 @@ public class AuthController {
     @PostMapping("/logout")
     public Mono<String> logOut(@RequestBody @Valid LogOutRequestDto requestDto) {
         return authService.logOut(requestDto);
+    }
+
+    @PostMapping("/refresh")
+    public Mono<RefreshTokenResponseDto> refreshToken(@RequestBody @Valid RefreshTokenRequestDto refreshTokenRequestDto) {
+        return authService.refreshToken(refreshTokenRequestDto);
     }
 
 }

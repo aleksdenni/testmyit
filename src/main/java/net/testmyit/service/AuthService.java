@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.testmyit.dto.request.LogInRequestDto;
 import net.testmyit.dto.request.LogOutRequestDto;
+import net.testmyit.dto.request.RefreshTokenRequestDto;
 import net.testmyit.dto.response.LogInResponseDto;
+import net.testmyit.dto.response.RefreshTokenResponseDto;
 import net.testmyit.security.KeycloakAuth;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -21,7 +23,11 @@ public class AuthService {
         return responseDto;
     }
 
-    public Mono<String> logOut(LogOutRequestDto requestDto) {
-        return keycloakAuth.logOut(requestDto);
+    public Mono<String> logOut(LogOutRequestDto logOutRequest) {
+        return keycloakAuth.logOut(logOutRequest);
+    }
+
+    public Mono<RefreshTokenResponseDto> refreshToken(RefreshTokenRequestDto refreshTokenRequest) {
+        return keycloakAuth.refreshToken(refreshTokenRequest);
     }
 }
